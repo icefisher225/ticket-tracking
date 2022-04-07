@@ -8,4 +8,4 @@ Complete WIP, no functionality is guaranteed.
 
 All rights reserved. No licensing, modification or use is allowed for any purposes without the express written permission of the creator. 
 
-Licensing will likely change down the road, but there are other stakeholders who must be consulted. 
+Licensing will likely change down the road, but there are other stakeholders who must be consulted first. 
