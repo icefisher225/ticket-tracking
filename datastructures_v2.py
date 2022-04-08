@@ -82,23 +82,6 @@ class Date:
         self.month = temp[1]
         self.day = temp[2]
 
-    def _pp_month_conversion(self, *args, **kwargs) -> dict:
-        conv_dict = {
-            1: "jan",
-            2: "feb",
-            3: "mar",
-            4: "apr",
-            5: "may",
-            6: "jun",
-            7: "jul",
-            8: "aug",
-            9: "sep",
-            10: "oct",
-            11: "nov",
-            12: "dec",
-        }
-        return conv_dict[self.month]
-
     def _pp_day_conversion(self, *args, **kwargs) -> str:
         if self.day >= 10:
             return str(self.day)
@@ -106,11 +89,13 @@ class Date:
             return "0" + str(self.day)
 
     def __str__(self, *args, **kwargs) -> str:
-        return self.pretty_print(args, kwargs)
+        return self._pretty_print(args, kwargs)
 
-    def pretty_print(self, *args, **kwargs) -> str:
+    def _pretty_print(self, *args, **kwargs) -> str:
         # returns a date in format "daymonthyear" formatted like "02apr2022".
-        return f"{self._pp_day_conversion()}{self._pp_month_conversion()}{self.year}"
+        return (
+            f"{self._pp_day_conversion()}{month_num_to_ltr_conv(self.month)}{self.year}"
+        )
 
 
 @dataclass()
