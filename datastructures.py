@@ -119,7 +119,7 @@ class Signal:
         return f"{str(self._name).capitalize()}\n\tSource: {str(self._source)}\n\t{description}\n"
 
     def __str__(self, *args, **kwargs):
-        return self.prettyprint()
+        return self.prettyprint(args, kwargs)
 
 
 class Insight:
