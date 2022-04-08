@@ -157,15 +157,30 @@ class Entity:
 
 
 @dataclass()
+class Host:
+    name: str = ""
+
+    @property
+    def set_name(self, name, *args, **kwargs) -> None:
+        self.name = name
+
+    def prettyprint(self, *args, **kwargs) -> str:
+        return self.name
+
+    def __str__(self, *args, **kwargs) -> str:
+        return self.prettyprint()
+
+
+@dataclass()
 class Insight:
     number: int = 0
-    host: str = "Unknown"
-    user: str = "Unknown"
-    entity: Entity = None
-    date: Date = None
-    time: Time = None
-    activity_time: Time = None
-    signals: list = None
+    _host: str = "Unknown"
+    _user: str = "Unknown"
+    _entity: Entity = None
+    _date: Date = None
+    _time: Time = None
+    _activity_time: Time = None
+    _signals: list = None
 
     """
     :number: Insight number
@@ -173,7 +188,46 @@ class Insight:
     :user: Relevant user
     :entity: What entity the insight triggered on. Can be host, IP, user, etc.
     """
-    # TODO: Timing. Was kwarg-based, now somethig else is necessary.
+    # TODO: Timing. Was kwarg-based, now something else is necessary.
 
     def __post_init__(self, *args, **kwargs):
         self.signals = list()
+        # TODO: what else needs to be initialized?
+
+    # TODO: Fill out stubs
+    # TODO: Add getters
+    @property
+    def set_host(self, host: str, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def set_user(self, user: str, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def set_entity(self, entity: str, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def set_date(self, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def set_time(self, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def set_act_time(self, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def add_signal(self, sig: Signal, *args, **kwargs) -> None:
+        pass
+
+    @property
+    def get_signals(self, *args, **kwargs) -> str:
+        # TODO: Fix this, it definitely does not work
+        ret = ""
+        for sig in self._signals:
+            ret += f"{sig}\n"
+        return ret

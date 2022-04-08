@@ -1,7 +1,7 @@
 from helperfunctions import *
 
 
-def test_month_conv(month):
+def test_month_conv():
     tmp = ""
     for i in range(1, 13):
         print(i)

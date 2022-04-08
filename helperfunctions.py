@@ -46,7 +46,9 @@ def month_num_to_ltr_conv(month: int, *args, **kwargs) -> str:
     :month: int, month of year you want to convert
     :return: 3-letter-ified monthname based on number passed in
     """
-    if month > 1 or month < 12:
+    if type(month) is not int:
+        raise TypeError(f"got {type(month)}, need <class 'int'>")
+    try:
         conv_dict = {
             1: "jan",
             2: "feb",
@@ -62,5 +64,6 @@ def month_num_to_ltr_conv(month: int, *args, **kwargs) -> str:
             12: "dec",
         }
         return conv_dict[month]
-    else:
+    except KeyError as ke:
+        dprint(ke)
         raise ValueError("Month must be between 1 and 12.")
