@@ -1,13 +1,14 @@
-from typing import Union, Any
+from typing import Any, Union
 
 DEBUG_PRINT = True
 
 
-def is_intable(*args, **kwargs) -> Union[Exception, bool]:
+def is_intable(*args, **kwargs) -> bool:
     for test in args:
         try:
             int(test)
         except Exception as e:
+            dprint(e)
             return False
     return True
 
@@ -32,9 +33,9 @@ def is_empty(item: Any, *args, **kwargs) -> bool:
         return False
 
 
-def prt_conv_hlpr(value, *args, **kwargs):
+def prt_conv_hlpr(value, *args, **kwargs) -> str:
     # helper function to clean up prettyprint code
     if value > 9:
-        return value
+        return str(value)
     else:
         return "0" + str(value)
