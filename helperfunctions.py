@@ -1,9 +1,9 @@
-from typing import Union, Any
+import typing
 
 DEBUG_PRINT = True
 
 
-def is_intable(*args, **kwargs) -> Union[Exception, bool]:
+def is_intable(*args) -> typing.Union(Exception, bool):
     for test in args:
         try:
             int(test)
@@ -12,7 +12,7 @@ def is_intable(*args, **kwargs) -> Union[Exception, bool]:
     return True
 
 
-def dprint(*args, **kwargs) -> None:
+def dprint(*args) -> None:
     # Debug print function
     # all non-release print calls should use this function instead of standard print. Supports multiple arguments and auto-stringifying.
     if DEBUG_PRINT:
@@ -21,7 +21,7 @@ def dprint(*args, **kwargs) -> None:
         print("")
 
 
-def is_empty(item: Any, *args, **kwargs) -> bool:
+def is_empty(item: typing.Any) -> bool:
     try:
         if item:
             return False
