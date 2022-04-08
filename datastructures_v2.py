@@ -18,7 +18,7 @@ class Time:
 
     hour: int = -1
     minute: int = -1
-    second: Union(None, int) = None
+    second: int = None
 
     def __post_init__(self, *args, **kwargs) -> None:
         # Sets default values to instantiation time if not passed in
@@ -130,8 +130,11 @@ class Source:
 @dataclass()
 class Signal:
     name: str = ""
-    source: Source = Source()
-    details: list = list()
+    source: Source = None
+    details: list = None
+
+    def __post_init__(self, *args, **kwargs):
+        self.details = list()
 
     def add_details(self, *args, **kwargs) -> None:
         # pass in the additional details via *args
