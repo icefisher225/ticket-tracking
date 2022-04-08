@@ -39,3 +39,28 @@ def prt_conv_hlpr(value, *args, **kwargs) -> str:
         return str(value)
     else:
         return "0" + str(value)
+
+
+def month_num_to_ltr_conv(month: int, *args, **kwargs) -> str:
+    """
+    :month: int, month of year you want to convert
+    :return: 3-letter-ified monthname based on number passed in
+    """
+    if month > 1 or month < 12:
+        conv_dict = {
+            1: "jan",
+            2: "feb",
+            3: "mar",
+            4: "apr",
+            5: "may",
+            6: "jun",
+            7: "jul",
+            8: "aug",
+            9: "sep",
+            10: "oct",
+            11: "nov",
+            12: "dec",
+        }
+        return conv_dict[month]
+    else:
+        raise ValueError("Month must be between 1 and 12.")
