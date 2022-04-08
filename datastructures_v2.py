@@ -46,7 +46,7 @@ class Time:
         else:
             return f"{hour}:{min}"
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self, *args, **kwargs) -> str:
         return self.pretty_print()
 
 
@@ -142,11 +142,53 @@ class Signal:
         for item in args:
             self.details.append(str(item))
 
-    def _prettyprint(self, *args, **kwargs):
+    def _prettyprint(self, *args, **kwargs) -> str:
         description = ""
         for line in self.details:
             description += f"{line}\n\t"
         return f"{self.name.capitalize()}\nSource: {self.source}\n\y{description}\n"
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self, *args, **kwargs) -> str:
         return self._prettyprint(args, kwargs)
+
+
+@dataclass()
+class Entity:
+    name: str = ""
+    _set: bool = None
+
+    def __post_init__(self, *args, **kwargs) -> None:
+        if self.name == "":
+            self._set = False
+
+    def set_name(self, name, *args, **kwargs) -> None:
+        self.name = str(name)
+
+    def prettyprint(self, *args, **kwargs) -> str:
+        return str(self.name)
+
+    def __str__(self, *args, **kwargs) -> str:
+        return self.prettyprint()
+
+
+@dataclass()
+class Insight:
+    number: int = 0
+    host: str = "Unknown"
+    user: str = "Unknown"
+    entity: Entity = None
+    date: Date = None
+    time: Time = None
+    activity_time: Time = None
+    signals: list = None
+
+    """
+    :number: Insight number
+    :host: Relevant host
+    :user: Relevant user
+    :entity: What entity the insight triggered on. Can be host, IP, user, etc.
+    """
+    # TODO: Timing. Was kwarg-based, now somethig else is necessary.
+
+    def __post_init__(self, *args, **kwargs):
+        self.signals = list()
