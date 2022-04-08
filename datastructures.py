@@ -1,5 +1,7 @@
 import os, sys, math, datetime, time
 
+from dataclasses import dataclass, field
+
 from typing import Any, Union
 
 from helperfunctions import *
@@ -151,9 +153,10 @@ class Insight:
         self._number = number
         self._host = host
         self._user = user
-        self._date = None  # _Date class
-        self._time = None  # _Time class
-        self._activity_time = None  # _Time class
+        self._date = None
+        self._time = None
+        self._activity_time = None
+        self._set_datetime_default()  # Changes default values of None to proper classes, sets dates and times to class instantiation time as default
         self._datetime_dict = {
             "creation_hour": 0,
             "creation_minute": 0,
@@ -173,17 +176,20 @@ class Insight:
             list()
         )  # create empty list of signals - specific to Sumo Logic/Exabeam(ish). Other SIEMs: one signal per alert.
 
+    def _set_datetime_default(self, *args, **kwargs) -> None:
+        temp = (
+            time.localtime()
+        )  # Sets the alert date/time and activity time to the time this class is created. Main loop will likely prompt the user. GUI implementation should have these values pre-placed in the boxes but greyed out to let the user know they are defaults.
+        self._date = _Date(temp[0], temp[1], temp[2])
+        self._time = _Time(temp[3], temp[4], temp[5])
+        self._activity_time = _Time(temp[3], temp[4], temp[5])
+
     def _set_creation_datetime(self, *args, **kwargs) -> None:
-        if not kwargs:
-            temp = time.localtime()()
-            self._date = _Date(temp[0], temp[1], temp[2])
-            self._time = _Time(temp[3], temp[4], temp[5])
         # TODO: check if this even works
-        else:
-            for key in kwargs.keys:
-                dprint(f"{key}:{kwargs[key]}")
-                if key in self._datetime_dict.keys:
-                    self._datetime_dict[key] = str(kwargs[key])
+        for key in kwargs.keys:
+            dprint(f"{key}:{kwargs[key]}")
+            if key in self._datetime_dict.keys:
+                self._datetime_dict[key] = str(kwargs[key])
 
     def _header_out(self) -> str:
         return f"Insight {self._number}\n{self._time} {self._date}\nHost: {self._host}\nUser: {self._user}\nEntity: {self._entity}"
