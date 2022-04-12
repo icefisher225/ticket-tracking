@@ -67,3 +67,11 @@ def month_num_to_ltr_conv(month: int, *args, **kwargs) -> str:
     except KeyError as ke:
         dprint(ke)
         raise ValueError("Month must be between 1 and 12.")
+
+
+def virustotal_query(self, hash, *args, **kwargs):
+    """
+    :hash: Hash of file to search
+    :return: formatted URL to search by hash on VirusTotal
+    """
+    return f"https://virustotal.com/gui/search/{hash}"

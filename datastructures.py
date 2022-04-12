@@ -173,15 +173,19 @@ class Object:
 
 @dataclass()
 class Host(Object):
-    def __post_init__(self, *args, **kwargs) -> None:
-        self.name = ""
+    pass
+
+
+@dataclass()
+class User(Object):
+    pass
 
 
 @dataclass()
 class Insight:
     number: int = 0
     _host: Host = None
-    _user: str = "Unknown"
+    _user: User = None
     _entity: Entity = None
     _date: Date = None
     _time: Time = None
@@ -210,7 +214,7 @@ class Insight:
 
     @property
     def set_user(self, user: str, *args, **kwargs) -> None:
-        self._user = str(user)
+        self._user = User(user)
 
     @property
     def get_user(self, *args, **kwargs):
@@ -221,27 +225,24 @@ class Insight:
         self._entity = Entity(entity)
 
     @property
-    # TODO: Make this
-    def set_date(self, *args, **kwargs) -> None:
-        pass
+    def set_date(self, year=-1, month=-1, day=-1, *args, **kwargs) -> None:
+        self._date = Date(year, month, day)
 
     @property
     def get_date(self, *args, **kwargs) -> str:
         return str(self._date)
 
     @property
-    # TODO: make this
-    def set_time(self, *args, **kwargs) -> None:
-        pass
+    def set_time(self, hour=-1, minute=-1, second=None, *args, **kwargs) -> None:
+        self._time = Time(hour, minute, second)
 
     @property
     def get_time(self, *args, **kwargs) -> str:
         return str(self._time)
 
     @property
-    # TODO: Make this
-    def set_act_time(self, *args, **kwargs) -> None:
-        pass
+    def set_act_time(self, hour=-1, minute=-1, second=None, *args, **kwargs) -> None:
+        self._activity_time = Time(hour, minute, second)
 
     @property
     def get_act_time(self, *args, **kwargs) -> str:
@@ -249,7 +250,10 @@ class Insight:
 
     @property
     def add_signal(self, sig: Signal, *args, **kwargs) -> None:
-        # Takes in fully fleshed out signal, does not generate them
+        """
+        :sig: Signal object
+        :return: None
+        """
         self._signals.append(sig)
 
     @property
