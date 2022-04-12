@@ -157,12 +157,12 @@ class Entity:
 
 
 @dataclass()
-class Host:
-    name: str = ""
+class Object:
+    name: str
 
     @property
-    def set_name(self, name, *args, **kwargs) -> None:
-        self.name = name
+    def set_name(self, nm, *args, **kwargs) -> None:
+        self.name = nm
 
     def prettyprint(self, *args, **kwargs) -> str:
         return self.name
@@ -172,9 +172,15 @@ class Host:
 
 
 @dataclass()
+class Host(Object):
+    def __post_init__(self, *args, **kwargs) -> None:
+        self.name = ""
+
+
+@dataclass()
 class Insight:
     number: int = 0
-    _host: str = "Unknown"
+    _host: Host = None
     _user: str = "Unknown"
     _entity: Entity = None
     _date: Date = None
@@ -194,35 +200,57 @@ class Insight:
         self.signals = list()
         # TODO: what else needs to be initialized?
 
-    # TODO: Fill out stubs
-    # TODO: Add getters
     @property
     def set_host(self, host: str, *args, **kwargs) -> None:
-        pass
+        self._host = Host(host)
+
+    @property
+    def get_host(self, *args, **kwargs):
+        return str(self._host)
 
     @property
     def set_user(self, user: str, *args, **kwargs) -> None:
-        pass
+        self._user = str(user)
+
+    @property
+    def get_user(self, *args, **kwargs):
+        return str(self._user)
 
     @property
     def set_entity(self, entity: str, *args, **kwargs) -> None:
-        pass
+        self._entity = Entity(entity)
 
     @property
+    # TODO: Make this
     def set_date(self, *args, **kwargs) -> None:
         pass
 
     @property
+    def get_date(self, *args, **kwargs) -> str:
+        return str(self._date)
+
+    @property
+    # TODO: make this
     def set_time(self, *args, **kwargs) -> None:
         pass
 
     @property
+    def get_time(self, *args, **kwargs) -> str:
+        return str(self._time)
+
+    @property
+    # TODO: Make this
     def set_act_time(self, *args, **kwargs) -> None:
         pass
 
     @property
+    def get_act_time(self, *args, **kwargs) -> str:
+        return str(self._activity_time)
+
+    @property
     def add_signal(self, sig: Signal, *args, **kwargs) -> None:
-        pass
+        # Takes in fully fleshed out signal, does not generate them
+        self._signals.append(sig)
 
     @property
     def get_signals(self, *args, **kwargs) -> str:
