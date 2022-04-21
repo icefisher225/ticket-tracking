@@ -182,6 +182,27 @@ class User(Object):
 
 
 @dataclass()
+class CloseCode:
+    # Close Code class, only option is the code.
+    # Sumo Logic uses "False Positive", "resolved", "No Action", "Duplicate".
+    code: str
+
+    def _prettyprint(self):
+        return f"{self.code}"
+
+    def __str__(self):
+        return self._prettyprint()
+
+
+@dataclass()
+class Duplicate(CloseCode):
+    dupe: str
+
+    def _prettyprint(self):
+        return f"{self.code} of {self.dupe}"
+
+
+@dataclass()
 class Insight:
     number: int = 0
     _host: Host = None
@@ -191,6 +212,7 @@ class Insight:
     _time: Time = None
     _activity_time: Time = None
     _signals: list = None
+    _close_code: CloseCode = None
 
     """
     :number: Insight number
