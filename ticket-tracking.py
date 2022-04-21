@@ -7,7 +7,13 @@ INSIGHTS = list()
 
 
 def main():
-    pass
+    return 0
+
+
+def new_insight(number, *args, **kwargs):
+    global insight
+    insight = Insight()
+    INSIGHTS.append(insight)
 
 
 if __name__ == "__main__":
