@@ -1,5 +1,4 @@
-from datastructures import *
-from helperfunctions import *
+from gui import *
 
 import pickle, math, time, datetime, os, sys
 
@@ -11,9 +10,7 @@ def main():
 
 
 def new_insight(number, *args, **kwargs):
-    global insight
-    insight = Insight()
-    INSIGHTS.append(insight)
+    pass
 
 
 if __name__ == "__main__":
