@@ -285,3 +285,6 @@ class Insight:
         for sig in self._signals:
             ret += f"{sig}\n"
         return ret
+
+    def _prettyprint(self, *args, **kwargs):
+        pass
